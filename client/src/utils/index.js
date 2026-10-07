@@ -1,4 +1,5 @@
 import { format, formatDistanceToNow, parseISO } from 'date-fns';
+import API from '../services/api';
 
 export const formatDate = (date, fmt = 'MMM dd, yyyy') => {
   if (!date) return 'N/A';
@@ -69,7 +70,8 @@ export const getInitials = (firstName, lastName) => {
 export const getAvatarUrl = (avatar) => {
   if (!avatar) return null;
   if (avatar.startsWith('http')) return avatar;
-  return `/uploads/avatars/${avatar}`;
+  const base = (API.defaults.baseURL || '').replace(/\/api$/, '');
+  return `${base}/uploads/avatars/${avatar}`;
 };
 
 export const generateTimeSlots = (start = '09:00', end = '17:00', interval = 30) => {
